@@ -55,7 +55,7 @@ export const addSeatRequest = (seat) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       dispatch(addSeat(res));
       dispatch(endRequest({ name: 'ADD_SEAT' }));
-
+      loadSeatsRequest();
     } catch(e) {
       dispatch(errorRequest({ name: 'ADD_SEAT', error: e.message }));
     }
