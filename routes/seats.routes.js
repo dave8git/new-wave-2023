@@ -30,7 +30,7 @@ router.route('/seats/:id').delete((req, res) => {
 
 router.route('/seats/:id').put((req, res) => {
     const elem = db.seats.find((item) => item.id == req.params.id);
-    elem.performer = req.body.day;
+    elem.performer = req.body.performer;
     elem.seat = req.body.seat;
     elem.client = req.body.client;
     elem.email = req.body.email;
