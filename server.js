@@ -4,6 +4,7 @@ const uuid = require('uuid');
 const app = express(); 
 const db = require('./db');
 const cors = require('cors');
+const socket = require('socket.io');
 
 const testimonials = require('./routes/testimonials.routes');
 const concerts = require('./routes/concerts.routes');

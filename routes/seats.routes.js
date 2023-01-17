@@ -21,11 +21,12 @@ router.route('/seats').post((req, res) => {
     }
     const foundSeat = db.seats.find((item) => item.seat === elem.seat && item.day === elem.day);
     console.log(foundSeat);
-    if(foundSeat) {
-        db.seats.push(item)
-    };
-    
-    res.json({message: 'ok'});
+    if(!foundSeat) {
+        db.seats.push(item);
+        res.json({message: 'ok'});
+    } else {
+        return res.status(404).json({ message: "Miejsce zajęte"});
+    }
 });
 
 router.route('/seats/:id').delete((req, res) => {
