@@ -19,7 +19,12 @@ router.route('/seats').post((req, res) => {
         client: req.body.client,
         email: req.body.email,
     }
-    db.seats.push(item),
+    const foundSeat = db.seats.find((item) => item.seat === elem.seat && item.day === elem.day);
+    console.log(foundSeat);
+    if(foundSeat) {
+        db.seats.push(item)
+    };
+    
     res.json({message: 'ok'});
 });
 
