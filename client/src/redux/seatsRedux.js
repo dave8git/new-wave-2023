@@ -56,9 +56,10 @@ export const addSeatRequest = (seat) => {
       dispatch(endRequest({ name: 'ADD_SEAT' }));
       dispatch(loadSeatsRequest());
     } catch(e) {
-      dispatch(errorRequest({ name: 'ADD_SEAT', error: e.message }));
-    }
+      console.log(e.response);
+      dispatch(errorRequest({ name: 'ADD_SEAT', error: e.response.data.message }));
 
+    }
   };
 };
 
