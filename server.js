@@ -17,6 +17,10 @@ app.use('/api', testimonials); // add post routes to server
 app.use('/api', concerts);
 app.use('/api', seats);
 
+app.use(express.static(path.join(__dirname, '/client/build')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+});
 
 app.use((req, res) => {
     res.status(404).json('404');
@@ -24,6 +28,6 @@ app.use((req, res) => {
 
 
 
-app.listen(8000, () => {
-    console.log('Server is running on port: 8000');
+const server = app.listen(process.env.PORT || 8000, () => {
+    console.log('Server is running on port: 8000')
 });
