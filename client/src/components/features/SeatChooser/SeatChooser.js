@@ -1,17 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Progress, Alert } from 'reactstrap';
 import { getSeats, loadSeatsRequest, getRequests } from '../../../redux/seatsRedux';
 import './SeatChooser.scss';
+import socket from 'socket.io-client';
+
 
 const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
+  const [io, setIO] = useState();
   const dispatch = useDispatch();
   const seats = useSelector(getSeats);
   const requests = useSelector(getRequests);
   
   useEffect(() => {
     dispatch(loadSeatsRequest());
-  }, [dispatch])
+  }, [dispatch]);
+
+  useEffect(() => { // jeżeli re-renderujesz komponent, to jeżeli io zmieniło swoją wartość wejdź do środka i odpal co jest w środku funkcji
+    if(!io) {
+      setIO(socket());
+    }
+  }, [io]);
 
   const isTaken = (seatId) => {
     return (seats.some(item => (item.seat === seatId && item.day === chosenDay)));
