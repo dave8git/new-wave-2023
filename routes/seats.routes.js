@@ -27,6 +27,7 @@ router.route('/seats').post((req, res) => {
     if(!foundSeat) {
         db.seats.push(item);
         res.json({message: 'ok'});
+        req.io.emit('seatsUpdated', db.seats);
     } else {
         return res.status(404).json({ message: "Miejsce zajęte"});
     }

@@ -7,7 +7,7 @@ import socket from 'socket.io-client';
 
 
 const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
-  const [io, setIO] = useState();
+  const [io, setIO] = useState(socket());
   const dispatch = useDispatch();
   const seats = useSelector(getSeats);
   const requests = useSelector(getRequests);
@@ -17,10 +17,10 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
   }, [dispatch]);
 
   useEffect(() => { // jeżeli re-renderujesz komponent, to jeżeli io zmieniło swoją wartość wejdź do środka i odpal co jest w środku funkcji
-    if(!io) {
-      setIO(socket());
-    }
-  }, [io]);
+      io.on('seatsUpdated', (payload) => {
+        console.log('seatsUpdate', payload);
+      });
+  }, []);
 
   const isTaken = (seatId) => {
     return (seats.some(item => (item.seat === seatId && item.day === chosenDay)));
