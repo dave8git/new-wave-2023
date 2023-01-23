@@ -39,14 +39,18 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
   }
 
   const seatsLeft = () => {
-    const day = seatsLeft.filter(seat => seat.day === chosenDay);
-    const available = seatsLeft.filter(seat => seat.seat === chosenSeat);
-    console.log('seatsLeft.day', day);
-    console.log('seatsLeft.available', available);
+    const day = localSeats.filter(seat => seat.day === chosenDay); // filtrujemy według wybranego dnia
+    return 50-day.length;
+    //console.log('left seats', 50-day.length);
+    // const available = localSeats.filter(seat => seat.seat === chosenSeat);
+    // console.log('localSeats', localSeats);
+    // console.log('seats number', seats);
+    // console.log('days left', day.length);
+    // console.log('reserverd seats', localSeats.filter(seat => seat.day === chosenDay).filter(seat => seat.seat === chosenSeat));
+    // console.log('seatsLeft.day', day);
+    // console.log('seatsLeft.available', available);
     // .filter(jedna => funckja filtrująca).filter(druga => funkcja filtrująca)
   }
-
-  seatsLeft();
 
   return (
     <div>
@@ -56,7 +60,7 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
       { (requests['LOAD_SEATS'] && requests['LOAD_SEATS'].success) && <div className="seats">{[...Array(50)].map((x, i) => prepareSeat(i+1) )}</div>}
       { (requests['LOAD_SEATS'] && requests['LOAD_SEATS'].pending) && <Progress animated color="primary" value={50} /> }
       { (requests['LOAD_SEATS'] && requests['LOAD_SEATS'].error) && <Alert color="warning">Couldn't load seats...</Alert> }
-      {/* <p>Seats available: { seatsLeft() }/50</p> */}
+      { <p>Seats available: { seatsLeft() } / 50</p> }
     </div>
   )
 }
