@@ -5,6 +5,8 @@ const app = express();
 const db = require('./db');
 const cors = require('cors');
 const socket = require('socket.io');
+//const mongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 
 const testimonials = require('./routes/testimonials.routes');
 const concerts = require('./routes/concerts.routes');
@@ -33,6 +35,15 @@ app.use((req, res) => {
     res.status(404).json('404');
 });
 
+// connects our backend code with the database
+mongoose.connect('mongodb://localhost:27017/companyDB', { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
+
+db.once('open', () => {
+    console.log('Connected to the database');
+  });
+  db.on('error', err => console.log('Error ' + err));
+  
 const server = app.listen(process.env.PORT || 8000, () => {
     console.log('Server is running on port: 8000')
 });
