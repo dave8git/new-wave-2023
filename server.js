@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const uuid = require('uuid');
 const app = express(); 
-const db = require('./db');
+//const db = require('./db');
 const cors = require('cors');
 const socket = require('socket.io');
 //const mongoClient = require('mongodb').MongoClient;
@@ -43,7 +43,7 @@ db.once('open', () => {
     console.log('Connected to the database');
   });
   db.on('error', err => console.log('Error ' + err));
-  
+
 const server = app.listen(process.env.PORT || 8000, () => {
     console.log('Server is running on port: 8000')
 });
