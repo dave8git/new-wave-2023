@@ -31,6 +31,7 @@ exports.post = async (req, res) => {
         await newSeat.save();
         res.json({ message: 'OK' });
     } catch (err) {
+        console.log('err', err);
         res.status(500).json({ message: err });
     }
 };
@@ -46,6 +47,7 @@ exports.delete = async (req, res) => {
         res.status(500).json({ message: err });
     }
 }
+
 
 
 
