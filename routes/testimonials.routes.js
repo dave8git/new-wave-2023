@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const TestimonialController = require('../controllers/testimonials.controller');
 
-router.get('/seats', TestimonialController.getAll);
+router.get('/testimonials', TestimonialController.getAll);
 
-router.get('/seat/:id', TestimonialController.getById);
+router.get('/testimonials/:id', TestimonialController.getById);
 
-router.post('/seats', TestimonialController.post);
+router.post('/testimonials', TestimonialController.post);
 
-router.put('/seats', TestimonialController.put);
+router.put('/testimonials', TestimonialController.put);
 
-router.delete('/seats/:id', TestimonialController.delete);
+router.delete('/testimonials/:id', TestimonialController.delete);
 
 module.exports = router;
