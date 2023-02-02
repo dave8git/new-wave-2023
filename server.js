@@ -36,7 +36,7 @@ app.use((req, res) => {
 });
 
 // connects our backend code with the database
-mongoose.connect('mongodb+srv://davepol:Olivermuc1@davepolcluster.yn1hyo1.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://davepol:Olivermuc1@davepolcluster.yn1hyo1.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 //mongodb+srv://davepol:<password>@davepolcluster.yn1hyo1.mongodb.net/?retryWrites=true&w=majority
