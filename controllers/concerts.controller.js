@@ -11,7 +11,7 @@ exports.getAll = async (req, res) => {
 exports.getById = async (req, res) => {
     try {
         const dep = await Concert.findById(req.params.id);
-        if(!dep) res.status(404).json({ message: 'Not found'});
+        if(!dep) res.status(404).json({ message: 'Not found'}); // dep zwraca 1
         else res.json(dep);
     } catch (err) {
         res.status(500).json({ message: err });
@@ -21,7 +21,7 @@ exports.getById = async (req, res) => {
 exports.getByPerformer = async (req, res) => {
     try {
         const performer = await Concert.find({ performer: { "$regex": req.params.performer, "$options": "i" }});
-        if(!performer) res.status(404).json({ message: 'Not found'});
+        if(!performer.length) res.status(404).json({ message: 'Not found'}); // performer i pozostałe zwaraca talbicę stąd length
         else res.json(performer);
     } catch (err) {
         res.status(500).json({ message: err });
@@ -31,7 +31,7 @@ exports.getByPerformer = async (req, res) => {
 exports.getByGenre = async (req, res) => {
     try {
         const genre = await Concert.find({ genre: { "$regex": req.params.genre, "$options": "i" }});
-        if(!genre) res.status(404).json({ message: 'Not found'});
+        if(!genre.length) res.status(404).json({ message: 'Not found'});
         else res.json(genre);
     } catch (err) {
         res.status(500).json({ message: err });
@@ -41,8 +41,8 @@ exports.getByGenre = async (req, res) => {
 exports.getByDay = async (req, res) => {
     try {
         const day = await Concert.find({ day: { "$eq": req.params.day }}); //
-        if(!performer) res.status(404).json({ message: 'Not found'});
-        else res.json(performer);
+        if(!day.length) res.status(404).json({ message: 'Not found'});
+        else res.json(day);
     } catch (err) {
         res.status(500).json({ message: err });
     }
@@ -51,7 +51,7 @@ exports.getByDay = async (req, res) => {
 exports.getByPrice = async (req, res) => {
     try {
         const { price_min, price_max } = req.params;
-        const result = await Concert.find({ price: { $in: [ price_min, price_max ] } });
+        const result = await Concert.find({ price: { $gte: price_min, $lte: price_max }});
         if(result.length) {
             res.json(result);
         } else {
