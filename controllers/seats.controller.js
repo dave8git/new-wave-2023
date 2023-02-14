@@ -22,10 +22,10 @@ exports.post = async (req, res) => {
     try {
         const { day, seat, client, email } = req.body;
         const newSeat = new Seat({
-            day: day,
-            seat: seat,
-            client: client,
-            email: email,
+            day: sanitize(day),
+            seat: sanitize(seat),
+            client: sanitize(client),
+            email: sanitize(email),
 
         });
         await newSeat.save();
